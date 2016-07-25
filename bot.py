@@ -13,12 +13,12 @@ PREFIX = u'机器人-'
 
 def update_groups():
     global groups
-    groups = []
+    tmp = []
     for group in itchat.get_chatrooms(update=True):
         if group['NickName'].startswith(PREFIX) and block_groups.get(group['NickName']) is None:
-            groups.append(group['UserName'])
+            tmp.append(group['UserName'])
             itchat.get_batch_contract(group['UserName'])
-
+    groups = tmp
     print(groups)
     print(time.time())
     thread = threading.Timer(55, update_groups)
